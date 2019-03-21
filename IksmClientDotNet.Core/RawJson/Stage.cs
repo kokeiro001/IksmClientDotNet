@@ -6,5 +6,4 @@
         public string image { get; set; }
         public string name { get; set; }
     }
-
 }

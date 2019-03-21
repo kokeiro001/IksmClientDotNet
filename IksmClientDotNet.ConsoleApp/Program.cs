@@ -31,17 +31,18 @@ namespace IksmClientDotNet.ConsoleApp
 
     class IksmService
     {
-        private readonly int AutoUpdateIntervalSecond = 300;
+        private static readonly int AutoUpdateIntervalSecond = 300;
 
-        private readonly string IksmSession;
-        private readonly string EditHtmlPath;
+        private readonly string iksmSession;
+        private readonly string editHtmlPath;
+
         private int remainSecond;
         private bool updating = false;
 
         public IksmService(string iksmSession, string editHtmlPath)
         {
-            IksmSession = iksmSession;
-            EditHtmlPath = editHtmlPath;
+            this.iksmSession = iksmSession;
+            this.editHtmlPath = editHtmlPath;
         }
 
         public async Task Run()
@@ -50,7 +51,6 @@ namespace IksmClientDotNet.ConsoleApp
 
             var interval = TimeSpan.FromSeconds(1).TotalMilliseconds;
             System.Timers.Timer timer = new System.Timers.Timer(interval);
-
 
             timer.Elapsed += Timer_Elapsed;
             remainSecond = AutoUpdateIntervalSecond;
@@ -82,20 +82,6 @@ namespace IksmClientDotNet.ConsoleApp
             }
         }
 
-        private void InitializeConsoleMode()
-        {
-            const uint ENABLE_QUICK_EDIT = 0x0040;
-            uint consoleMode;
-            const int STD_INPUT_HANDLE = -10;
-
-            IntPtr consoleHandle = GetStdHandle(STD_INPUT_HANDLE);
-            GetConsoleMode(consoleHandle, out consoleMode);
-
-            consoleMode &= ~ENABLE_QUICK_EDIT;
-
-            SetConsoleMode(consoleHandle, consoleMode);
-        }
-
         private async Task Update()
         {
             if (updating)
@@ -106,7 +92,7 @@ namespace IksmClientDotNet.ConsoleApp
             try
             {
                 updating = true;
-                var iksmClient = new IksmClient(IksmSession);
+                var iksmClient = new IksmClient(iksmSession);
 
                 var battleResults = await iksmClient.GetBattleResults();
 
@@ -119,8 +105,7 @@ namespace IksmClientDotNet.ConsoleApp
                 })
                 .ToArray();
 
-                // edit html
-                var htmlEditor = new RecentBattleResultHtmlEditor(EditHtmlPath);
+                var htmlEditor = new RecentBattleResultHtmlEditor(editHtmlPath);
                 var debugLog = new StringBuilder();
                 foreach (var item in data)
                 {
@@ -162,13 +147,30 @@ namespace IksmClientDotNet.ConsoleApp
             remainSecond = AutoUpdateIntervalSecond;
         }
 
+        private void InitializeConsoleMode()
+        {
+            const uint ENABLE_QUICK_EDIT = 0x0040;
+            uint consoleMode;
+            const int STD_INPUT_HANDLE = -10;
+
+            IntPtr consoleHandle = WinApiNativeMethods.GetStdHandle(STD_INPUT_HANDLE);
+            WinApiNativeMethods.GetConsoleMode(consoleHandle, out consoleMode);
+
+            consoleMode &= ~ENABLE_QUICK_EDIT;
+
+            WinApiNativeMethods.SetConsoleMode(consoleHandle, consoleMode);
+        }
+    }
+
+    class WinApiNativeMethods
+    {
         [DllImport("kernel32.dll", SetLastError = true)]
-        static extern IntPtr GetStdHandle(int nStdHandle);
+        public static extern IntPtr GetStdHandle(int nStdHandle);
 
         [DllImport("kernel32.dll")]
-        static extern bool GetConsoleMode(IntPtr hConsoleHandle, out uint lpMode);
+        public static extern bool GetConsoleMode(IntPtr hConsoleHandle, out uint lpMode);
 
         [DllImport("kernel32.dll")]
-        static extern bool SetConsoleMode(IntPtr hConsoleHandle, uint dwMode);
+        public static extern bool SetConsoleMode(IntPtr hConsoleHandle, uint dwMode);
     }
 }
