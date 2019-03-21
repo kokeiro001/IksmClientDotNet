@@ -2,36 +2,36 @@
 {
     public class ResultDetailRoot
     {
-        public string battle_number { get; set; }
-        public string type { get; set; }
-        public Game_Mode game_mode { get; set; }
-        public Stage stage { get; set; }
-        public Rule rule { get; set; }
+        public string BattleNumber { get; set; }
+        public string Type { get; set; }
+        public GameMode GameMode { get; set; }
+        public Stage Stage { get; set; }
+        public Rule Rule { get; set; }
 
-        public int start_time { get; set; }
-        public int elapsed_time { get; set; }
+        public int StartTime { get; set; }
+        public int ElapsedTime { get; set; }
 
-        public int star_rank { get; set; }
-        public int player_rank { get; set; }
-        public Udemae udemae { get; set; }
+        public int StarRank { get; set; }
+        public int PlayerRank { get; set; }
+        public Udemae Udemae { get; set; }
 
-        public Player_Result player_result { get; set; }
+        public PlayerResult PlayerResult { get; set; }
 
-        public int my_team_count { get; set; }
-        public int? my_estimate_league_point { get; set; }
-        public Team_Result my_team_result { get; set; }
-        public Player_Result[] my_team_members { get; set; }
+        public int MyTeamCount { get; set; }
+        public int? MyEstimateLeaguePoint { get; set; }
+        public TeamResult MyTeamResult { get; set; }
+        public PlayerResult[] MyTeamMembers { get; set; }
 
-        public int other_team_count { get; set; }
-        public int? other_estimate_league_point { get; set; }
-        public Team_Result other_team_result { get; set; }
-        public Player_Result[] other_team_members { get; set; }
+        public int OtherTeamCount { get; set; }
+        public int? OtherEstimateLeaguePoint { get; set; }
+        public TeamResult OtherTeamResult { get; set; }
+        public PlayerResult[] OtherTeamMembers { get; set; }
 
-        public float? max_league_point { get; set; }
-        public int? estimate_gachi_power { get; set; }
+        public float? MaxLeaguePoint { get; set; }
+        public int? EstimateGachiPower { get; set; }
 
-        public string tag_id { get; set; }
-        public int weapon_paint_point { get; set; }
-        public float? league_point { get; set; }
+        public string TagId { get; set; }
+        public int WeaponPaintPoint { get; set; }
+        public float? LeaguePoint { get; set; }
     }
 }

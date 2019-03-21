@@ -96,12 +96,12 @@ namespace IksmClientDotNet.ConsoleApp
 
                 var battleResults = await iksmClient.GetBattleResults();
 
-                var data = battleResults.results.Take(10).Select(x => new
+                var data = battleResults.Results.Take(10).Select(x => new
                 {
-                    win = x.my_team_result.name == "WIN!" ? true : false,
-                    x.player_result.kill_count,
-                    x.player_result.assist_count,
-                    x.player_result.death_count,
+                    win = x.MyTeamResult.Name == "WIN!" ? true : false,
+                    x.PlayerResult.KillCount,
+                    x.PlayerResult.AssistCount,
+                    x.PlayerResult.DeathCount,
                 })
                 .ToArray();
 
@@ -111,10 +111,10 @@ namespace IksmClientDotNet.ConsoleApp
                 {
                     var stringBuilder = new StringBuilder();
                     stringBuilder.Append(item.win ? "勝 " : "負 ");
-                    var kill = item.kill_count + item.assist_count;
-                    var assist = item.assist_count;
-                    var death = item.death_count;
-                    stringBuilder.Append($"{kill,2}({assist,2})k/{death,2}d");
+                    var totalKill = item.KillCount + item.AssistCount;
+                    var assist = item.AssistCount;
+                    var death = item.DeathCount;
+                    stringBuilder.Append($"{totalKill,2}({assist,2})k/{death,2}d");
 
                     var cssClass = item.win ? "win" : "lose";
 

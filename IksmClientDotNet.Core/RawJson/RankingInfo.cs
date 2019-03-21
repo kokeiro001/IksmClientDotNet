@@ -2,26 +2,26 @@
 {
     public class RankingRoot
     {
-        public object my_ranking { get; set; }
-        public string season_id { get; set; }
-        public int start_time { get; set; }
-        public object weapon_ranking { get; set; }
-        public string status { get; set; }
-        public int end_time { get; set; }
-        public int top_rankings_count { get; set; }
-        public Top_Rankings[] top_rankings { get; set; }
-        public Rule rule { get; set; }
+        public object MyRanking { get; set; }
+        public string SeasonId { get; set; }
+        public int StartTime { get; set; }
+        public object WeaponRanking { get; set; }
+        public string Status { get; set; }
+        public int EndTime { get; set; }
+        public int TopRankingsCount { get; set; }
+        public TopRankings[] TopRankings { get; set; }
+        public Rule Rule { get; set; }
     }
 
-    public class Top_Rankings
+    public class TopRankings
     {
-        public string rank_change { get; set; }
-        public int rank { get; set; }
-        public string principal_id { get; set; }
-        public Weapon weapon { get; set; }
-        public string name { get; set; }
-        public float x_power { get; set; }
-        public string unique_id { get; set; }
-        public bool cheater { get; set; }
+        public string RankChange { get; set; }
+        public int Rank { get; set; }
+        public string PrincipalId { get; set; }
+        public Weapon Weapon { get; set; }
+        public string Name { get; set; }
+        public float XPower { get; set; }
+        public string UniqueId { get; set; }
+        public bool Cheater { get; set; }
     }
 }

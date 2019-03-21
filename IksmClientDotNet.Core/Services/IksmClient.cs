@@ -10,11 +10,17 @@ namespace IksmClientDotNet.Core.Services
 {
     public class IksmClient
     {
+        private readonly JsonSerializerSettings jsonSerializerSettings;
         private string iksmSession;
 
         public IksmClient(string iksmSession)
         {
             this.iksmSession = iksmSession;
+
+            jsonSerializerSettings = new JsonSerializerSettings
+            {
+                ContractResolver = new SnakeCaseContractResolver()
+            };
         }
 
         public async Task<string> Request(string requestUrl)
@@ -55,7 +61,7 @@ namespace IksmClientDotNet.Core.Services
         public async Task<ResultRoot> GetBattleResults()
         {
             var result = await Request("api/results");
-            return JsonConvert.DeserializeObject<ResultRoot>(result);
+            return JsonConvert.DeserializeObject<ResultRoot>(result, jsonSerializerSettings);
         }
 
         public async Task<string> GetBattleResultDetail(int battleId)

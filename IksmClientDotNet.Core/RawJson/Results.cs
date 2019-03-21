@@ -2,191 +2,191 @@
 {
     public class ResultRoot
     {
-        public Result[] results { get; set; }
-        public string unique_id { get; set; }
-        public Summary summary { get; set; }
+        public Result[] Results { get; set; }
+        public string UniqueId { get; set; }
+        public Summary Summary { get; set; }
     }
 
     public class Summary
     {
-        public int defeat_count { get; set; }
-        public float assist_count_average { get; set; }
-        public float victory_rate { get; set; }
-        public int count { get; set; }
-        public float kill_count_average { get; set; }
-        public int victory_count { get; set; }
-        public float special_count_average { get; set; }
-        public float death_count_average { get; set; }
+        public int DefeatCount { get; set; }
+        public float AssistCountAverage { get; set; }
+        public float VictoryRate { get; set; }
+        public int Count { get; set; }
+        public float KillCountAverage { get; set; }
+        public int VictoryCount { get; set; }
+        public float SpecialCountAverage { get; set; }
+        public float DeathCountAverage { get; set; }
     }
 
     public class Result
     {
-        public int battle_number { get; set; }
-        public string type { get; set; }
-        public Game_Mode game_mode { get; set; }
-        public Stage stage { get; set; }
-        public Rule rule { get; set; }
+        public int BattleNumber { get; set; }
+        public string Type { get; set; }
+        public GameMode GameMode { get; set; }
+        public Stage Stage { get; set; }
+        public Rule Rule { get; set; }
 
-        public int start_time { get; set; }
-        public int elapsed_time { get; set; }
+        public int StartTime { get; set; }
+        public int ElapsedTime { get; set; }
 
-        public int star_rank { get; set; }
-        public int player_rank { get; set; }
-        public Udemae udemae { get; set; }
+        public int StarRank { get; set; }
+        public int PlayerRank { get; set; }
+        public Udemae Udemae { get; set; }
 
-        public Player_Result player_result { get; set; }
+        public PlayerResult PlayerResult { get; set; }
 
-        public int my_team_count { get; set; }
-        public int? my_estimate_league_point { get; set; }
-        public Team_Result my_team_result { get; set; }
+        public int MyTeamCount { get; set; }
+        public int? MyEstimateLeaguePoint { get; set; }
+        public TeamResult MyTeamResult { get; set; }
 
-        public int other_team_count { get; set; }
-        public int? other_estimate_league_point { get; set; }
-        public Team_Result other_team_result { get; set; }
+        public int OtherTeamCount { get; set; }
+        public int? OtherEstimateLeaguePoint { get; set; }
+        public TeamResult OtherTeamResult { get; set; }
 
-        public float? max_league_point { get; set; }
-        public int? estimate_gachi_power { get; set; }
+        public float? MaxLeaguePoint { get; set; }
+        public int? EstimateGachiPower { get; set; }
 
-        public string tag_id { get; set; }
-        public int weapon_paint_point { get; set; }
-        public float? league_point { get; set; }
+        public string TagId { get; set; }
+        public int WeaponPaintPoint { get; set; }
+        public float? LeaguePoint { get; set; }
     }
 
     public class Rule
     {
-        public string name { get; set; }
-        public string key { get; set; }
-        public string multiline_name { get; set; }
+        public string Name { get; set; }
+        public string Key { get; set; }
+        public string MultilineName { get; set; }
     }
 
-    public class Team_Result
+    public class TeamResult
     {
-        public string key { get; set; }
-        public string name { get; set; }
+        public string Key { get; set; }
+        public string Name { get; set; }
     }
 
-    public class Game_Mode
+    public class GameMode
     {
-        public string key { get; set; }
-        public string name { get; set; }
+        public string Key { get; set; }
+        public string Name { get; set; }
     }
 
-    public class Player_Result
+    public class PlayerResult
     {
-        public int sort_score { get; set; }
-        public int kill_count { get; set; }
-        public int assist_count { get; set; }
-        public int death_count { get; set; }
-        public int special_count { get; set; }
-        public int game_paint_point { get; set; }
-        public Player player { get; set; }
+        public int SortScore { get; set; }
+        public int KillCount { get; set; }
+        public int AssistCount { get; set; }
+        public int DeathCount { get; set; }
+        public int SpecialCount { get; set; }
+        public int GamePaintPoint { get; set; }
+        public Player Player { get; set; }
     }
 
     public class Player
     {
-        public Player_Type player_type { get; set; }
-        public string principal_id { get; set; }
-        public int player_rank { get; set; }
-        public Udemae udemae { get; set; }
+        public PlayerType PlayerType { get; set; }
+        public string PrincipalId { get; set; }
+        public int PlayerRank { get; set; }
+        public Udemae Udemae { get; set; }
 
-        public Skills head_skills { get; set; }
-        public Skills clothes_skills { get; set; }
-        public Skills shoes_skills { get; set; }
+        public Skills HeadSkills { get; set; }
+        public Skills ClothesSkills { get; set; }
+        public Skills ShoesSkills { get; set; }
 
-        public Gear head { get; set; }
-        public Gear clothes { get; set; }
-        public Gear shoes { get; set; }
+        public Gear Head { get; set; }
+        public Gear Clothes { get; set; }
+        public Gear Shoes { get; set; }
 
-        public string nickname { get; set; }
-        public int star_rank { get; set; }
-        public Weapon weapon { get; set; }
+        public string Nickname { get; set; }
+        public int StarRank { get; set; }
+        public Weapon Weapon { get; set; }
     }
 
-    public class Player_Type
+    public class PlayerType
     {
-        public string style { get; set; }
-        public string species { get; set; }
+        public string Style { get; set; }
+        public string Species { get; set; }
     }
 
     public class Brand
     {
-        public string name { get; set; }
-        public Frequent_Skill frequent_skill { get; set; }
-        public string id { get; set; }
-        public string image { get; set; }
+        public string Name { get; set; }
+        public FrequentSkill FrequentSkill { get; set; }
+        public string Id { get; set; }
+        public string Image { get; set; }
     }
 
-    public class Frequent_Skill
+    public class FrequentSkill
     {
-        public string image { get; set; }
-        public string name { get; set; }
-        public string id { get; set; }
+        public string Image { get; set; }
+        public string Name { get; set; }
+        public string Id { get; set; }
     }
 
     public class Main
     {
-        public string image { get; set; }
-        public string id { get; set; }
-        public string name { get; set; }
+        public string Image { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
     }
 
     public class Sub
     {
-        public string name { get; set; }
-        public string id { get; set; }
-        public string image { get; set; }
+        public string Name { get; set; }
+        public string Id { get; set; }
+        public string Image { get; set; }
     }
 
     public class WeaponSub
     {
-        public string image_b { get; set; }
-        public string image_a { get; set; }
-        public string id { get; set; }
-        public string name { get; set; }
+        public string ImageA { get; set; }
+        public string ImageB { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
     }
 
     public class Udemae
     {
-        public string name { get; set; }
-        public object s_plus_number { get; set; }
-        public bool is_x { get; set; }
+        public string Name { get; set; }
+        public object SPlusNumber { get; set; }
+        public bool IsX { get; set; }
 
-        public bool? is_number_reached { get; set; }
-        public int? number { get; set; }
+        public bool? IsNumberReached { get; set; }
+        public int? Number { get; set; }
     }
 
     public class Skills
     {
-        public Sub[] subs { get; set; }
-        public Main main { get; set; }
+        public Sub[] Subs { get; set; }
+        public Main Main { get; set; }
     }
 
     public class Gear
     {
-        public int rarity { get; set; }
-        public string kind { get; set; }
-        public string thumbnail { get; set; }
-        public Brand brand { get; set; }
-        public string image { get; set; }
-        public string id { get; set; }
-        public string name { get; set; }
+        public int Rarity { get; set; }
+        public string Kind { get; set; }
+        public string Thumbnail { get; set; }
+        public Brand Brand { get; set; }
+        public string Image { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
     }
 
     public class Weapon
     {
-        public string thumbnail { get; set; }
-        public Special special { get; set; }
-        public WeaponSub sub { get; set; }
-        public string id { get; set; }
-        public string name { get; set; }
-        public string image { get; set; }
+        public string Thumbnail { get; set; }
+        public Special Special { get; set; }
+        public WeaponSub Sub { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Image { get; set; }
     }
 
     public class Special
     {
-        public string name { get; set; }
-        public string id { get; set; }
-        public string image_a { get; set; }
-        public string image_b { get; set; }
+        public string Name { get; set; }
+        public string Id { get; set; }
+        public string ImageA { get; set; }
+        public string ImageB { get; set; }
     }
 }
