@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace IksmClientDotNet.Core.Services
+namespace IksmClientDotNet.ConsoleApp.Services
 {
     public class RecentBattleResultHtmlEditor
     {
