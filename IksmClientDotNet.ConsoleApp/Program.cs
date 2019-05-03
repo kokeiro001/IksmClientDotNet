@@ -93,45 +93,50 @@ namespace IksmClientDotNet.ConsoleApp
             try
             {
                 updating = true;
-                var iksmClient = new IksmClient(iksmSession);
-
-                var battleResults = await iksmClient.GetBattleResults();
-
-                var data = battleResults.Results.Take(10).Select(x => new
-                {
-                    win = x.MyTeamResult.Name == "WIN!" ? true : false,
-                    x.PlayerResult.KillCount,
-                    x.PlayerResult.AssistCount,
-                    x.PlayerResult.DeathCount,
-                })
-                .ToArray();
-
-                var htmlEditor = new RecentBattleResultHtmlEditor(editHtmlPath, "OutputHtmlBase.html");
-                var debugLog = new StringBuilder();
-                foreach (var item in data)
-                {
-                    var stringBuilder = new StringBuilder();
-                    stringBuilder.Append(item.win ? "勝 " : "負 ");
-                    var totalKill = item.KillCount + item.AssistCount;
-                    var assist = item.AssistCount;
-                    var death = item.DeathCount;
-                    stringBuilder.Append($"{totalKill,2}({assist,2})k/{death,2}d");
-
-                    var cssClass = item.win ? "win" : "lose";
-
-                    htmlEditor.AddText(stringBuilder.ToString(), cssClass);
-                    debugLog.AppendLine(stringBuilder.ToString());
-                }
-
-                Console.WriteLine();
-                Console.WriteLine(debugLog.ToString());
-
-                htmlEditor.Flush();
+                await OutputRecentBattleResultHtml();
             }
             finally
             {
                 updating = false;
             }
+        }
+
+        private async Task OutputRecentBattleResultHtml()
+        {
+            var iksmClient = new IksmClient(iksmSession);
+
+            var battleResults = await iksmClient.GetBattleResults();
+
+            var data = battleResults.Results.Take(10).Select(x => new
+            {
+                win = x.MyTeamResult.Name == "WIN!" ? true : false,
+                x.PlayerResult.KillCount,
+                x.PlayerResult.AssistCount,
+                x.PlayerResult.DeathCount,
+            });
+
+            var htmlEditor = new RecentBattleResultHtmlEditor(editHtmlPath, "OutputHtmlBase.html");
+            var debugLog = new StringBuilder();
+            foreach (var item in data)
+            {
+                var stringBuilder = new StringBuilder();
+                stringBuilder.Append(item.win ? "勝 " : "負 ");
+
+                var totalKill = item.KillCount + item.AssistCount;
+                var assist = item.AssistCount;
+                var death = item.DeathCount;
+                stringBuilder.Append($"{totalKill,2}({assist,2})k/{death,2}d");
+
+                var cssClass = item.win ? "win" : "lose";
+
+                htmlEditor.AddText(stringBuilder.ToString(), cssClass);
+                debugLog.AppendLine(stringBuilder.ToString());
+            }
+
+            Console.WriteLine();
+            Console.WriteLine(debugLog.ToString());
+
+            htmlEditor.Flush();
         }
 
         private async void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
