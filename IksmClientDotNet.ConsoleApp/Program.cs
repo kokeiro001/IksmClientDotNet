@@ -106,7 +106,7 @@ namespace IksmClientDotNet.ConsoleApp
                 })
                 .ToArray();
 
-                var htmlEditor = new RecentBattleResultHtmlEditor(editHtmlPath);
+                var htmlEditor = new RecentBattleResultHtmlEditor(editHtmlPath, "OutputHtmlBase.html");
                 var debugLog = new StringBuilder();
                 foreach (var item in data)
                 {
