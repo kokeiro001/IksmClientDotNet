@@ -37,7 +37,7 @@ namespace IksmClientDotNet.ConsoleApp
         private readonly string iksmSession;
         private readonly string editHtmlPath;
 
-        private int remainSecond;
+        private DateTime lastUpdatedAt;
         private bool updating = false;
 
         public IksmService(string iksmSession, string editHtmlPath)
@@ -54,7 +54,7 @@ namespace IksmClientDotNet.ConsoleApp
             System.Timers.Timer timer = new System.Timers.Timer(interval);
 
             timer.Elapsed += Timer_Elapsed;
-            remainSecond = AutoUpdateIntervalSecond;
+            lastUpdatedAt = DateTime.Now;
             timer.Start();
 
             while (true)
@@ -78,7 +78,7 @@ namespace IksmClientDotNet.ConsoleApp
 
                 await Update();
 
-                remainSecond = AutoUpdateIntervalSecond;
+                lastUpdatedAt = DateTime.Now;
                 timer.Start();
             }
         }
@@ -136,7 +136,7 @@ namespace IksmClientDotNet.ConsoleApp
 
         private async void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            remainSecond--;
+            var remainSecond = (int)(lastUpdatedAt.AddSeconds(AutoUpdateIntervalSecond) - DateTime.Now).TotalSeconds;
             if (remainSecond > 0)
             {
                 Console.CursorLeft = 0;
@@ -145,7 +145,8 @@ namespace IksmClientDotNet.ConsoleApp
             }
 
             await Update();
-            remainSecond = AutoUpdateIntervalSecond;
+
+            lastUpdatedAt = DateTime.Now;
         }
 
         private void InitializeConsoleMode()
