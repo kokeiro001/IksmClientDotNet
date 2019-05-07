@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2050
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IksmClientDotNet.ConsoleApp", "IksmClientDotNet.ConsoleApp\IksmClientDotNet.ConsoleApp.csproj", "{61001CCA-DB0D-499B-B9B9-4A78E60E8CA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IksmClientDotNet.RecentBattleHtmlCreator", "IksmClientDotNet.ConsoleApp\IksmClientDotNet.RecentBattleHtmlCreator.csproj", "{61001CCA-DB0D-499B-B9B9-4A78E60E8CA6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IksmClientDotNet", "IksmClientDotNet.Core\IksmClientDotNet.csproj", "{76187C1A-91DD-4671-A0A3-66BB25C5EAC9}"
 EndProject
