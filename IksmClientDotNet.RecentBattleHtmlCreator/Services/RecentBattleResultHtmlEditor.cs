@@ -2,9 +2,18 @@
 using AngleSharp.Html.Parser;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace IksmClientDotNet.ConsoleApp.Services
 {
+    public class BattleDataSummary
+    {
+        public bool Win { get; set; }
+        public int KillCount { get; set; }
+        public int AssistCount { get; set; }
+        public int DeathCount { get; set; }
+    }
+
     public class RecentBattleResultHtmlEditor
     {
         private readonly string outputHtmlPath;
@@ -18,9 +27,22 @@ namespace IksmClientDotNet.ConsoleApp.Services
             this.baseHtmlPath = baseHtmlPath;
         }
 
-        public void AddText(string text, string cssClass)
+        public string AddBattleData(BattleDataSummary battleData)
         {
+            var stringBuilder = new StringBuilder();
+            stringBuilder.Append(battleData.Win? "勝 " : "負 ");
+
+            var totalKill = battleData.KillCount + battleData.AssistCount;
+            var assist = battleData.AssistCount;
+            var death = battleData.DeathCount;
+            stringBuilder.Append($"{totalKill,2}({assist,2})k/{death,2}d");
+
+            var cssClass = battleData.Win ? "win" : "lose";
+
+            var text = stringBuilder.ToString();
             data.Add((text, cssClass));
+
+            return text;
         }
 
         public void Flush()

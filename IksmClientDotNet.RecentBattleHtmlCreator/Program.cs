@@ -107,30 +107,20 @@ namespace IksmClientDotNet.ConsoleApp
 
             var battleResults = await iksmClient.GetBattleResults();
 
-            var data = battleResults.Results.Take(10).Select(x => new
+            var data = battleResults.Results.Take(10).Select(x => new BattleDataSummary
             {
-                win = x.MyTeamResult.Name == "WIN!" ? true : false,
-                x.PlayerResult.KillCount,
-                x.PlayerResult.AssistCount,
-                x.PlayerResult.DeathCount,
+                Win = x.MyTeamResult.Name == "WIN!" ? true : false,
+                KillCount = x.PlayerResult.KillCount,
+                AssistCount = x.PlayerResult.AssistCount,
+                DeathCount = x.PlayerResult.DeathCount,
             });
 
             var htmlEditor = new RecentBattleResultHtmlEditor(editHtmlPath, "OutputHtmlBase.html");
             var debugLog = new StringBuilder();
             foreach (var item in data)
             {
-                var stringBuilder = new StringBuilder();
-                stringBuilder.Append(item.win ? "勝 " : "負 ");
-
-                var totalKill = item.KillCount + item.AssistCount;
-                var assist = item.AssistCount;
-                var death = item.DeathCount;
-                stringBuilder.Append($"{totalKill,2}({assist,2})k/{death,2}d");
-
-                var cssClass = item.win ? "win" : "lose";
-
-                htmlEditor.AddText(stringBuilder.ToString(), cssClass);
-                debugLog.AppendLine(stringBuilder.ToString());
+                var text = htmlEditor.AddBattleData(item);
+                debugLog.AppendLine(text);
             }
 
             Console.WriteLine();
