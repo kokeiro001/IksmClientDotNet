@@ -1,7 +1,7 @@
 using IksmClientDotNet.Core.RawJson;
-using Newtonsoft.Json;
 using System.Net;
 using System.Net.Http.Headers;
+using System.Text.Json;
 
 namespace IksmClientDotNet.Core.Services
 {
@@ -15,17 +15,11 @@ namespace IksmClientDotNet.Core.Services
 
     public class IksmClient
     {
-        private readonly JsonSerializerSettings jsonSerializerSettings;
         private readonly string iksmSession;
 
         public IksmClient(string iksmSession)
         {
             this.iksmSession = iksmSession;
-
-            jsonSerializerSettings = new JsonSerializerSettings
-            {
-                ContractResolver = new SnakeCaseContractResolver()
-            };
         }
 
         public async Task<string> Request(string requestUrl)
@@ -64,7 +58,7 @@ namespace IksmClientDotNet.Core.Services
         public async Task<ResultRoot> GetBattleResults()
         {
             var result = await Request("api/results");
-            return JsonConvert.DeserializeObject<ResultRoot>(result, jsonSerializerSettings);
+            return JsonSerializer.Deserialize<ResultRoot>(result) ?? throw new InvalidCastException();
         }
 
         public async Task<string> GetBattleResultDetail(int battleId)
