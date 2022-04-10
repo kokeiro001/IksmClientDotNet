@@ -58,10 +58,53 @@ namespace IksmClientDotNet.Core.Services.Tests
 
                 var rankingRaw = await iksmClient.GetRankingRaw(rankingUrlBuilder);
 
-                var filename = @$"{rankingRawOutputDirectory}\{rankingUrlBuilder.Period}_{rankingUrlBuilder.Rule}_{rankingUrlBuilder.Page}.json";
+                var filename = @$"{rankingRawOutputDirectory}\{rankingUrlBuilder.Season}_{rankingUrlBuilder.Rule}_{rankingUrlBuilder.Page}.json";
                 File.WriteAllText(filename, rankingRaw);
 
                 await Task.Delay(TimeSpan.FromSeconds(5));
+            }
+        }
+
+
+        [TestMethod()]
+        public async Task DownloadRankings()
+        {
+            var iksmClient = new IksmClient(iksmSession);
+
+            var now = DateTime.UtcNow;
+            var currentSeasonStart = new DateTime(now.Year, now.Month, 1);
+            var splatoon2FirstSeadon = new DateTime(2018, 4, 1);
+
+            var rules = new GameRule[]
+            {
+                GameRule.SplatZones,
+                GameRule.TowerControl,
+                GameRule.Rainmaker,
+                GameRule.ClamBlitz,
+            };
+
+            foreach (var rule in rules)
+            {
+                for (var indexSeason = splatoon2FirstSeadon; indexSeason < currentSeasonStart; indexSeason = indexSeason.AddMonths(1))
+                {
+                    for (int page = 1; page <= 5; page++)
+                    {
+                        var rankingUrlBuilder = new RankingUrlBuilder(indexSeason.Year, indexSeason.Month, rule, page);
+
+                        var filepath = @$"{rankingRawOutputDirectory}\{rankingUrlBuilder.Season}_{rankingUrlBuilder.Rule}_{rankingUrlBuilder.Page}.json";
+
+                        if (File.Exists(filepath))
+                        {
+                            continue;
+                        }
+
+                        var rankingRaw = await iksmClient.GetRankingRaw(rankingUrlBuilder);
+
+                        File.WriteAllText(filepath, rankingRaw);
+
+                        await Task.Delay(TimeSpan.FromSeconds(5));
+                    }
+                }
             }
         }
     }

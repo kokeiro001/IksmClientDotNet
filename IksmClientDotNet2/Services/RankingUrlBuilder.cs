@@ -6,11 +6,11 @@
         public int Page { get; }
 
         public string Rule;
-        public string Period { get; }
+        public string Season { get; }
 
         public RankingUrlBuilder(int year, int month, GameRule gameRule, int page)
         {
-            if (year <= 2018 || year >= 3000)
+            if (year <= 2017 || year >= 3000)
             {
                 throw new ArgumentOutOfRangeException(nameof(year));
             }
@@ -37,9 +37,9 @@
             var startTime = new DateTime(year, month, 1);
             var endTime = startTime.AddMonths(1);
 
-            Period = startTime.ToString("yyMMdd") + "T00_" + endTime.ToString("yyMMdd") + "T00";
+            Season = startTime.ToString("yyMMdd") + "T00_" + endTime.ToString("yyMMdd") + "T00";
 
-            Url = $"api/x_power_ranking/{Period}/{Rule}?page={page}";
+            Url = $"api/x_power_ranking/{Season}/{Rule}?page={page}";
         }
     }
 }
