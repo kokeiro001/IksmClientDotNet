@@ -1,18 +1,18 @@
-﻿using System;
+﻿using IksmClientDotNet.ConsoleApp.Services;
+using IksmClientDotNet.Core.Services;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using IksmClientDotNet.ConsoleApp.Services;
-using IksmClientDotNet.Core.Services;
-using Microsoft.Extensions.Configuration;
 
 namespace IksmClientDotNet.ConsoleApp
 {
-    class Program
+    internal class Program
     {
-        static async Task Main(string[] args)
+        private static async Task Main()
         {
             var builder = new ConfigurationBuilder();
             builder.SetBasePath(Directory.GetCurrentDirectory());
@@ -24,13 +24,13 @@ namespace IksmClientDotNet.ConsoleApp
         }
     }
 
-    class Config
+    internal class Config
     {
         public string IksmSession { get; set; }
         public string EditHtmlPath { get; set; }
     }
 
-    class IksmService
+    internal class IksmService
     {
         private static readonly int AutoUpdateIntervalSecond = 300;
 
@@ -109,7 +109,7 @@ namespace IksmClientDotNet.ConsoleApp
 
             var data = battleResults.Results.Take(10).Select(x => new BattleDataSummary
             {
-                Win = x.MyTeamResult.Name == "WIN!" ? true : false,
+                Win = x.MyTeamResult.Name == "WIN!",
                 KillCount = x.PlayerResult.KillCount,
                 AssistCount = x.PlayerResult.AssistCount,
                 DeathCount = x.PlayerResult.DeathCount,
@@ -144,14 +144,13 @@ namespace IksmClientDotNet.ConsoleApp
             lastUpdatedAt = DateTime.Now;
         }
 
-        private void InitializeConsoleMode()
+        private static void InitializeConsoleMode()
         {
             const uint ENABLE_QUICK_EDIT = 0x0040;
-            uint consoleMode;
             const int STD_INPUT_HANDLE = -10;
 
             IntPtr consoleHandle = WinApiNativeMethods.GetStdHandle(STD_INPUT_HANDLE);
-            WinApiNativeMethods.GetConsoleMode(consoleHandle, out consoleMode);
+            WinApiNativeMethods.GetConsoleMode(consoleHandle, out uint consoleMode);
 
             consoleMode &= ~ENABLE_QUICK_EDIT;
 
@@ -159,7 +158,7 @@ namespace IksmClientDotNet.ConsoleApp
         }
     }
 
-    class WinApiNativeMethods
+    internal class WinApiNativeMethods
     {
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern IntPtr GetStdHandle(int nStdHandle);
