@@ -1,13 +1,18 @@
 using IksmClientDotNet.Core.RawJson;
 using Newtonsoft.Json;
-using System;
 using System.Net;
-using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
 
 namespace IksmClientDotNet.Core.Services
 {
+    public enum GameRule
+    {
+        SplatZones,
+        TowerControl,
+        Rainmaker,
+        ClamBlitz,
+    }
+
     public class IksmClient
     {
         private readonly JsonSerializerSettings jsonSerializerSettings;
@@ -65,6 +70,19 @@ namespace IksmClientDotNet.Core.Services
         public async Task<string> GetBattleResultDetail(int battleId)
         {
             return await Request($"api/results/{battleId}");
+        }
+
+        public Task<string> GetRankingRaw(int year, int month, GameRule gameRule, int page)
+        {
+            var rankingUrlBuilder = new RankingUrlBuilder(year, month, gameRule, page);
+            return GetRankingRaw(rankingUrlBuilder);
+        }
+
+        public async Task<string> GetRankingRaw(RankingUrlBuilder rankingUrlBuilder)
+        {
+            var json = await Request(rankingUrlBuilder.Url);
+
+            return json;
         }
     }
 }
